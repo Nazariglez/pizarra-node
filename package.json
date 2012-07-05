@@ -1,0 +1,13 @@
+{
+	"name": "pizarra",
+	"version": "0.0.1",
+	"author": "Nazarí González",
+	"engines": {
+		"node": ">= 0.6.0"
+	},
+	"dependencies": {
+		"express": ">= 2.5.0",
+		"jade": ">= 1.2.0",
+		"socket.io": ">=0.8.7"
+	}
+}

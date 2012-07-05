@@ -1,0 +1,29 @@
+!!! 5
+html(lang='en-US')
+  head
+    meta(charset='UTF-8')
+    title
+    script(type='text/javascript', src='modernizr.js')
+    script(type='text/javascript', src='/socket.io/socket.io.js')
+    script(type='text/javascript', src='script.js')
+    style(type='text/css')
+      html,body {
+        height: 100%;
+        width: 100%;
+      }
+      input#clean {
+        margin: 2px 0px 2px 30px;
+        border: 1px solid #000;
+      }
+      canvas#canvas {
+        position: absolute;
+        top: 40px;
+        left: 40px;
+        border: 2px solid #000;
+        cursor: pointer;
+      }
+  body
+    form
+      input#clean(type='button', value='Limpiar')
+    canvas#canvas(width='550', height='200')
+      | Tu Navegador no acepta canvas.
