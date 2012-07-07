@@ -1,0 +1,4 @@
+Pizarra de dibujo realizada con Canvas, que permite a varios usuarios pintar y ver lo que otros pintan a tiempo real gracias a node.js y el uso de websockets mediante socket.io.
+
+Web: http://www.nazariglez.com
+Twitter: https://twitter.com/#!/Nazariglez
