@@ -1,5 +1,0 @@
-Pizarra de dibujo realizada con Canvas, que permite a varios usuarios pintar y ver lo que otros pintan a tiempo real gracias a node.js y el uso de websockets mediante socket.io.
-
-Vídeo de demostración: http://www.youtube.com/watch?v=J_F6gMxrbVU
-Web: http://www.nazariglez.com/2012/07/08/dibujando-a-tiempo-real-con-canvas-node-js-y-socket-io/
-Twitter: https://twitter.com/#!/Nazariglez
