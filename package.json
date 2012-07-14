@@ -1,13 +1,14 @@
 {
-	"name": "pizarra",
-	"version": "0.0.1",
-	"author": "Nazarí González",
-	"engines": {
-		"node": ">= 0.6.0"
-	},
-	"dependencies": {
-		"express": ">= 2.5.0",
-		"jade": ">= 0.26.3",
-		"socket.io": ">=0.8.7"
-	}
+  "name": "pizarra",
+  "version": "0.0.2",
+  "author": "Nazarí González",
+  "private": true,
+  "dependencies": {
+    "express": "2.5.11",
+    "coffee-script": ">=1.3.3",
+    "uglify-js": "*",
+    "stylus": ">=0.22.6",
+    "jade": ">=0.26.3",
+    "socket.io": ">=0.8.7"
+    }
 }
