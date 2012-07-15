@@ -1,10 +1,12 @@
-
 //Inicializamos las variables necesarias.
-var express = require('express'),
-	app = express.createServer(),
-	io = require('socket.io').listen(app);
+var express = require('express')
+  , http = require('http');
 
-app.listen(8080); //Establecemos el puerto 8080 en escucha.
+var app = express();
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+
+server.listen(8080);
 io.set('log level',1); //Lo pongo a nivel uno para evitar demasiados logs ajenos a la aplicación.
 
 app.configure(function(){
