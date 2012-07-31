@@ -77,7 +77,7 @@ io.sockets.on "connection", (socket) ->
 
   ###
     Cuando un usuario realiza una acción en el cliente,
-    recibos los datos de la acción en concreto y
+    recibo los datos de la acción en concreto y
     envío a todos los demás las coordenadas
   ###
 

@@ -2,32 +2,34 @@
 canvasSupport = ->
   Modernizr.canvas
 
+# set a function to control the scope
 canvasApp = ->
+
+  # method to draw a clean canvas
+  clean = (context) ->
+    context.fillStyle = "green"
+    context.fillRect 0, 0, theCanvas.width, theCanvas.height
+
+  # method to init a line at some coords
+  startLine = (e) ->
+    context.beginPath()
+    context.strokeStyle = "white"
+    context.lineCap = "round"
+    context.lineWidth = 5
+    context.moveTo e.clientX - theCanvas.offsetLeft, e.clientY - theCanvas.offsetTop
+  
+  # methd to end the line
+  closeLine = (e) ->
+    context.closePath()
+
+  # method to draw the line
+  draw = (e) ->
+    context.lineTo e.clientX - theCanvas.offsetLeft, e.clientY - theCanvas.offsetTop
+    context.stroke()
+
+  # clear the canvas, connect, set the listeners and the socket methods
   init = ->
-
-  	# method to draw a clean canvas
-    clean = ->
-      context.fillStyle = "green"
-      context.fillRect 0, 0, theCanvas.width, theCanvas.height
-
-    # method to init a line at some coords
-    startLine = (e) ->
-      context.beginPath()
-      context.strokeStyle = "#fff"
-      context.lineCap = "round"
-      context.lineWidth = 5
-      context.moveTo e.clientX - theCanvas.offsetLeft, e.clientY - theCanvas.offsetTop
-    
-    # methd to end the line
-    closeLine = (e) ->
-      context.closePath()
-
-    # method to draw the line
-    draw = (e) ->
-      context.lineTo e.clientX - theCanvas.offsetLeft, e.clientY - theCanvas.offsetTop
-      context.stroke()
-
-    clean()
+    clean context
     click = false
     block = false
 
@@ -36,7 +38,7 @@ canvasApp = ->
 
       # clean the board
       buttonClean.addEventListener "click", (->
-        socket.emit "clean", true  unless block
+        socket.emit "clean", true unless block
       ), false
 
       # catch when someone is clicking in the board
@@ -86,7 +88,7 @@ canvasApp = ->
       socket.on "move", (e) ->
         draw e  if block
 
-      socket.on "clean", clean
+      socket.on "clean", clean context
 
   # if there's canvas support, init the app
   if canvasSupport()
