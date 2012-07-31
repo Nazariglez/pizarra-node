@@ -10,8 +10,8 @@ Pizarra de dibujo realizada con Canvas, que permite a varios usuarios pintar y v
 3. Run `coffee app.coffee` and you'r done! just open a browser and type `http://localhost:3000`
 
 ## Minification
-JS minification is done with [UglifyJS](https://github.com/mishoo/UglifyJS)
-Run Espresso with `coffee app.coffee -p` to minify the generated CoffeeScript
+- JS minification is done with [UglifyJS](https://github.com/mishoo/UglifyJS)
+- Run Espresso with `coffee app.coffee -p` to minify the generated CoffeeScript
 
 ## TODO
 - What happens when two users draw at the same time?

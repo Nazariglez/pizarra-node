@@ -5,36 +5,55 @@ canvasSupport = ->
 # set a function to control the scope
 canvasApp = ->
 
+  class User
+    constructor: (@id) ->
+      @color = generateRandomColor()
+
   # method to draw a clean canvas
-  clean = (context) ->
+  clean = (context, canvas) ->
     context.fillStyle = "green"
-    context.fillRect 0, 0, theCanvas.width, theCanvas.height
+    context.fillRect 0, 0, canvas.width, canvas.height
+
+  # method to set the color of the stroke
+  setLineColor = (context, color) ->
+    context.strokeStyle = color;
+
+  # method to set the width of the stroke
+  setLineWidth = (context, width) ->
+    context.lineWidth = width
+
+  # generate random color
+  generateRandomColor = ->
+    "#" + Math.floor(Math.random()*16777215).toString(16)
 
   # method to init a line at some coords
-  startLine = (e) ->
+  startLine = (context, canvas, color, e) ->
     context.beginPath()
-    context.strokeStyle = "white"
+    setLineColor context, color
     context.lineCap = "round"
-    context.lineWidth = 5
-    context.moveTo e.clientX - theCanvas.offsetLeft, e.clientY - theCanvas.offsetTop
+    setLineWidth context, 5
+    context.moveTo e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop
   
   # methd to end the line
-  closeLine = (e) ->
+  closeLine = (context) ->
     context.closePath()
 
   # method to draw the line
-  draw = (e) ->
-    context.lineTo e.clientX - theCanvas.offsetLeft, e.clientY - theCanvas.offsetTop
+  draw = (context, canvas, e) ->
+    context.lineTo e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop
     context.stroke()
 
   # clear the canvas, connect, set the listeners and the socket methods
   init = ->
-    clean context
+    clean context, canvas
     click = false
     block = false
 
     # connect with the server using socket.io
     socket.on "connect", ->
+
+      user = new User this.socket.sessionid
+      socket.color = user.color
 
       # clean the board
       buttonClean.addEventListener "click", (->
@@ -42,14 +61,14 @@ canvasApp = ->
       ), false
 
       # catch when someone is clicking in the board
-      theCanvas.addEventListener "mousedown", ((e) ->
+      canvas.addEventListener "mousedown", ((e) ->
         unless block
           socket.emit "startLine",
             clientX: e.clientX
             clientY: e.clientY
 
           click = true
-          startLine e
+          startLine context, canvas, user.color, e
       ), false
 
       # catch when someone is releasing the click in the board
@@ -60,40 +79,41 @@ canvasApp = ->
             clientY: e.clientY
 
           click = false
-          closeLine e
+          closeLine context, e
       ), false
 
       # catch the movement of the mouse
-      theCanvas.addEventListener "mousemove", ((e) ->
+      canvas.addEventListener "mousemove", ((e) ->
         if click
           unless block
             socket.emit "draw",
               clientX: e.clientX
               clientY: e.clientY
 
-            draw e
+            draw context, canvas, e
       ), false
 
       # receive through websockets the draw commands
       socket.on "down", (e) ->
         unless click
           block = true
-          startLine e
+          console.log this.color
+          startLine context, canvas, this.color, e
 
       socket.on "up", (e) ->
         unless click
           block = false
-          closeLine e
+          closeLine context, e
 
       socket.on "move", (e) ->
-        draw e  if block
+        draw context, canvas, e  if block
 
-      socket.on "clean", clean context
+      socket.on "clean", clean context, canvas
 
   # if there's canvas support, init the app
   if canvasSupport()
-    theCanvas = document.getElementById("canvas")
-    context = theCanvas.getContext("2d")
+    canvas = document.getElementById("canvas")
+    context = canvas.getContext("2d")
     buttonClean = document.getElementById("clean")
     socket = io.connect("/")
     init()
