@@ -97,7 +97,6 @@ canvasApp = ->
       socket.on "down", (e) ->
         unless click
           block = true
-          console.log this.color
           startLine context, canvas, this.color, e
 
       socket.on "up", (e) ->
@@ -108,7 +107,8 @@ canvasApp = ->
       socket.on "move", (e) ->
         draw context, canvas, e  if block
 
-      socket.on "clean", clean context, canvas
+      socket.on "clean" ->
+        clean context, canvas
 
   # if there's canvas support, init the app
   if canvasSupport()
