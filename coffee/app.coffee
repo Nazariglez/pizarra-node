@@ -23,6 +23,8 @@ canvasApp = ->
     context.lineWidth = width
 
   # generate random color
+  # http://paulirish.com/2009/random-hex-color-code-snippets/
+  # It's based on the equality of 16777215 == ffffff in decimal
   generateRandomColor = ->
     "#" + Math.floor(Math.random()*16777215).toString(16)
 
@@ -107,7 +109,7 @@ canvasApp = ->
       socket.on "move", (e) ->
         draw context, canvas, e  if block
 
-      socket.on "clean" ->
+      socket.on "clean", ->
         clean context, canvas
 
   # if there's canvas support, init the app
