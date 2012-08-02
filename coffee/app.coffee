@@ -11,8 +11,11 @@ canvasApp = ->
 
   # method to draw a clean canvas
   clean = (context, canvas) ->
-    context.fillStyle = "green"
-    context.fillRect 0, 0, canvas.width, canvas.height
+    # context.fillStyle = "rgba(255, 255, 255, 0.5)"
+    # context.fillRect 0, 0, canvas.width, canvas.height
+    # ÑAPA. If we change the width, we actually reset the canvas
+    canvas.width = canvas.width + 1 - 1;
+    # canvas.width = canvas.width - 1;
 
   # method to set the color of the stroke
   setLineColor = (context, color) ->

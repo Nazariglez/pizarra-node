@@ -6,7 +6,7 @@ Pizarra de dibujo realizada con Canvas, que permite a varios usuarios pintar y v
 
 ## How to
 1. Download the zip file and unzip it
-2. Run `npm install` command line inside the project directory
+2. Run `npm install` command inside the project directory
 3. Run `coffee app.coffee` and you'r done! just open a browser and type `http://localhost:3000`
 
 ## Minification
@@ -21,4 +21,4 @@ Pizarra de dibujo realizada con Canvas, que permite a varios usuarios pintar y v
 
 ## Authors
 - [Nazarí González](http://twitter.com/Nazariglez)
-- [Sergio Ruiz](http://twitter.com/serginator) -- migrated to Espresso Boilerplate
+- [Sergio Ruiz](http://twitter.com/serginator)
