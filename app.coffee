@@ -1,11 +1,19 @@
 ### require modules ###
 express = require 'express'
+# we need to load http in order to make socket.io work with express>=3.0.0
+http = require 'http'
+# we need to load path to make express.static work
+path = require 'path'
 espresso = require './espresso.coffee'
 io = require 'socket.io'
 
 # create express server
-app = express.createServer()
-io = io.listen app
+# app = express.createServer() now is express()
+app = express()
+# but being express() means that it doesn't handle http itself, so we need
+# to load http and create a server, and work with this var to start the server
+server = http.createServer app
+io = io.listen server
 io.set 'log level', 1
 
 ### parse args (- coffee and the filename) ###
@@ -15,19 +23,22 @@ rprod = /-{1,2}(p|production)/
 
 for s in ARGV
   m = rargs.exec s
-  app.env = 'production' if m and m[0] and m[0].match rprod
+  # app.env = 'production' if m and m[0] and m[0].match rprod
+  server.env = 'production' if m and m[0] and m[0].match rprod
 
 ### express configuration ###
 app.configure ->
   app.set 'views', __dirname + '/views'
   app.set 'view engine', 'jade'
   app.use express.bodyParser()
-  app.use express.static __dirname + '/public'
+  # app.use express.static __dirname + '/public'
+  app.use express.static path.join __dirname, 'public'
 
 ### watch coffeescript sources ###
 coffee = espresso.core.exec "#{espresso.core.node_modules_path}coffee -o public/js -w -c coffee"
 coffee.stdout.on 'data', (data) ->
-  espresso.core.minify() if app.env == 'production'
+  # espresso.core.minify() if app.env == 'production'
+  espresso.core.minify() if server.env == 'production'
 
 ### watch stylus sources ###
 espresso.core.exec "#{espresso.core.node_modules_path}stylus -w -c styl -o public/css"
@@ -37,7 +48,8 @@ app.get '/', (req, res) ->
   res.render 'index', { title : 'Pizarra - Espresso Boilerplate' }
 
 # start server
-app.listen 3000, -> console.log "Express server listening on port %d, (env = %s)", app.address().port, app.env
+# app.listen 3000, -> console.log "Express server listening on port %d, (env = %s)", app.address().port, app.env
+server.listen 3000, -> console.log "Express server listening on port %d, (env = %s)", server.address().port, server.env
 
 # Socket.io
 # Connection established

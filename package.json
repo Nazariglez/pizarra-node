@@ -4,7 +4,7 @@
   "author": "Sergio Ruiz",
   "private": true,
   "dependencies": {
-    "express": "2.5.11",
+    "express": "3.0.0rc1",
     "coffee-script": ">=1.3.3",
     "stylus": "*",
     "jade": "*",
