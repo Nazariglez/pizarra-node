@@ -1,9 +1,11 @@
 {
   "name": "pizarra-node",
-  "version": "0.5",
+  "version": "0.5.0",
   "author": "Nazarí González",
   "contributors": [{
     "name": "Nazarí González",
+    "email": "",
+    "url": ""
   }, {
     "name": "Sergio Ruiz",
     "email": "serginator@gmail.com",
@@ -17,5 +19,5 @@
     "jade": "*",
     "uglify-js": "*",
     "socket.io": ">=0.8.7"
-    }
+  }
 }
