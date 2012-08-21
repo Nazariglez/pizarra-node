@@ -46,7 +46,7 @@ app.get '/', (req, res) ->
 
 # start server
 # app.listen 3000, -> console.log "Express server listening on port %d, (env = %s)", app.address().port, app.env
-server.listen 3000, -> 
+server.listen process.env.PORT || 3000, ->
   espresso.core.logEspresso()
   console.log "Express server listening on port %d", server.address().port
 
