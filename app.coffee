@@ -14,6 +14,11 @@ server = http.createServer app
 io = io.listen server
 io.set 'log level', 1
 
+# To be able to work with Heroku, comment to work with real WebSockets
+io.configure ->
+  io.set "transports", ["xhr-polling"]
+  io.set "polling duration", 10
+
 ### parse args (- coffee and the filename) ###
 ARGV = process.argv[2..]
 rargs = /-{1,2}\w+/
