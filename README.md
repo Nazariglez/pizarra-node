@@ -4,6 +4,9 @@ Pizarra de dibujo realizada con Canvas, que permite a varios usuarios pintar y v
 - Vídeo de demostración: http://www.youtube.com/watch?v=J_F6gMxrbVU
 - Web: http://www.nazariglez.com/2012/07/08/dibujando-a-tiempo-real-con-canvas-node-js-y-socket-io/
 
+## Demo
+- [Heroku](http://pizarra-node.herokuapp.com)
+
 ## How to
 1. Download the zip file and unzip it
 2. Run `npm install` command inside the project directory
